@@ -1,9 +1,9 @@
 package com.example.miniproject.entity;
 
-import com.example.myproject.constant.Gender;
-import com.example.myproject.constant.Quitstatus;
-import com.example.myproject.constant.Role;
-import com.example.myproject.entity.base.BaseTime;
+import com.example.miniproject.constant.Gender;
+import com.example.miniproject.constant.Quitstatus;
+import com.example.miniproject.constant.Role;
+import com.example.miniproject.entity.base.BaseTime;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;

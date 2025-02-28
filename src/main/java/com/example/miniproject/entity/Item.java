@@ -1,8 +1,8 @@
 package com.example.miniproject.entity;
 
-import com.example.myproject.constant.ItemSellStatus;
-import com.example.myproject.constant.Season;
-import com.example.myproject.entity.base.BaseTimeBy;
+import com.example.miniproject.constant.ItemSellStatus;
+import com.example.miniproject.constant.Season;
+import com.example.miniproject.entity.base.BaseTimeBy;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

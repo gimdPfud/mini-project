@@ -1,6 +1,6 @@
 package com.example.miniproject.entity;
 
-import com.example.myproject.entity.base.BaseTimeBy;
+import com.example.miniproject.entity.base.BaseTimeBy;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;

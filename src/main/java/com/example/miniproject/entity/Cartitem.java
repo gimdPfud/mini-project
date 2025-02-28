@@ -1,7 +1,7 @@
 package com.example.miniproject.entity;
 
-import com.example.myproject.constant.CartStatus;
-import com.example.myproject.entity.base.BaseTimeBy;
+import com.example.miniproject.constant.CartStatus;
+import com.example.miniproject.entity.base.BaseTimeBy;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
