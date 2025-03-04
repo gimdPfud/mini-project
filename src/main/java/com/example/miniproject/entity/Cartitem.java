@@ -1,6 +1,5 @@
 package com.example.miniproject.entity;
 
-import com.example.miniproject.constant.CartStatus;
 import com.example.miniproject.entity.base.BaseTimeBy;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -26,6 +25,4 @@ public class Cartitem extends BaseTimeBy {
 
     private int itemamount; //상품 개수
 
-    @Enumerated(value = EnumType.STRING)
-    CartStatus cartStatus; /*wish(구매 전) end(구매 후)*/
 }

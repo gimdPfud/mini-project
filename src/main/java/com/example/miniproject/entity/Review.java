@@ -24,7 +24,7 @@ public class Review extends BaseTimeBy {
     private int score;      //리뷰 별점
 
     @OneToOne
-    @JoinColumn(name = "orders_id", unique = true, nullable = false)
-    private Orders orders;  //리뷰할라면 주문번호 있어야되니까...
+    @JoinColumn(name = "ordersitem_id", unique = true, nullable = false)
+    private Ordersitem ordersitem;  //리뷰할라면 주문번호 있어야되니까...
     
 }
