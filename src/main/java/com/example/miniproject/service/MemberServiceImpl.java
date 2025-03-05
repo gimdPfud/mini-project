@@ -1,5 +1,6 @@
 package com.example.miniproject.service;
 
+import com.example.miniproject.constant.Role;
 import com.example.miniproject.dto.MemberDTO;
 import com.example.miniproject.entity.Member;
 import com.example.miniproject.repository.MemberRepository;
@@ -7,6 +8,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @Transactional
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService /*todo todotodotodo*/{
+public class MemberServiceImpl implements MemberService , UserDetailsService {
     private final ModelMapper modelMapper;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
@@ -50,5 +55,28 @@ public class MemberServiceImpl implements MemberService /*todo todotodotodo*/{
     @Override
     public MemberDTO update(MemberDTO memberDTO) {
         return null;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member= memberRepository.findByEmail(email);
+        if(member==null){
+            throw new UsernameNotFoundException("사용자를 찾을 수 없습니다.");
+        }
+
+        /*확인용?*/
+        String role = "";
+        if(member.getRole().name().equals(Role.ADMIN.name())){
+            log.info("관리자 "+member.getEmail()+" 로그인 시도");
+            role = member.getRole().name();
+        }else{
+            log.info("일반 회원 "+member.getEmail()+" 로그인 시도");
+            role = member.getRole().name();
+        }
+
+        UserDetails user = User.builder().username(member.getEmail())
+                .password(member.getPsw())
+                .roles(role).build();
+        return user;
     }
 }
