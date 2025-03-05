@@ -1,6 +1,5 @@
 package com.example.miniproject.service;
 
-import com.example.miniproject.constant.Role;
 import com.example.miniproject.dto.MemberDTO;
 import com.example.miniproject.entity.Member;
 import com.example.miniproject.repository.MemberRepository;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Log4j2
 @Transactional
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService /*todo todotodotodo*/{
     private final ModelMapper modelMapper;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
@@ -38,8 +37,8 @@ public class MemberServiceImpl implements MemberService{
         /*3. 비밀번호 암호화*/
         member.setPsw(passwordEncoder.encode(member.getPsw()));
 
-        /*4. todo 일단 지금 권한은 ADMIN*/
-        member.setRole(Role.ADMIN);
+//        /*4. todo 일단 지금 권한은 ADMIN*/
+//        member.setRole(Role.ADMIN);
 
         /*5. 저장*/
         member = memberRepository.save(member);

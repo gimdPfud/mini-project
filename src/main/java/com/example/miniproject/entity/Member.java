@@ -5,7 +5,6 @@ import com.example.miniproject.constant.Quitstatus;
 import com.example.miniproject.constant.Role;
 import com.example.miniproject.entity.base.BaseTime;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +27,6 @@ public class Member extends BaseTime {
     private	String	email;    //회원 이메일
 
     @Column(nullable = false)
-    @Size(min = 8, max = 16, message = "비밀번호는 8자 이상, 16자 이하로 작성해주세요.")
     private	String	psw;      //회원 비밀번호
 
     private	String	addr;     //회원 주소

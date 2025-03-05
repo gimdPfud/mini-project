@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{tmpl/layouts/layout}">
+<head>
+    <style>
+        .star{
+            color: red;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <form action="/YnM/user/signUp" method="post" th:object="${memberDTO}">
+        <div class="row mt-3">
+            <div class="col-6 offset-3">
+
+                <h1 class="text-center">회원가입</h1>
+
+                <!--todo 이름-->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input th:field="*{name}" type="text" class="form-control" id="name" name="name" required>
+                            <label for="name">이름 <span class="star">*</span></label>
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--todo 이메일-->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input name="email" th:field="*{email}" type="email" class="form-control" id="email" required>
+                            <label for="email">이메일 <span class="star">*</span></label>
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--todo 비밀번호-->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="password" th:field="*{psw}"  id="password" required>
+                            <label for="password">비밀번호 <span class="star">*</span></label>
+                            <p th:if="${#fields.hasErrors('psw')}" th:errors="*{psw}" class="fieldError"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--todo 주소-->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3 input-group">
+                            <input class="form-control" th:field="*{addr}" name="addr" type="text" id="sample5_address" readonly>
+                            <input type="button" class="btn btn-secondary" onclick="sample5_execDaumPostcode()" value="주소 검색">
+                        </div>
+                    </div>
+                </div>
+
+                <!--todo 상세주소-->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <input class="form-control" th:field="*{addr_detail}" name="addr_detail" type="text">
+                            <label for="addr_detail">상세주소</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!--todo 전화번호-->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text">전화번호</span>
+                                <input type="text" id="tel1" class="form-control" placeholder="010">
+                                <input type="text" id="tel2" class="form-control" placeholder="0000">
+                                <input type="text" id="tel3" class="form-control" placeholder="0000">
+                                <input type="hidden" name="tel" id="tel" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--todo 성별-->
+                <div class="row">
+                    <div class="col">
+                        <div class="form-floating mb-3">
+
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="gender">성별</label>
+                                <select class="form-select" id="gender" th:field="*{gender}">
+                                    <option value="M">남성</option>
+                                    <option value="F">여성</option>
+                                    <option value="N">밝히지 않음</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--todo 버튼-->
+                <div class="row">
+                    <div class="col text-center d-grid">
+                        <button type="submit" class="btn btn-secondary signUpbtn">회원가입 &Gt;</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+    <!--주소 api-->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function sample5_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var addr = data.address; // 최종 주소 변수
+
+                    // 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById("sample5_address").value = addr;
+                }
+            }).open();
+        }
+
+        let signUpbtn = $(".signUpbtn")
+        let tel = $("#tel")
+        let tel1 = $("#tel1")
+        let tel2 = $("#tel2")
+        let tel3 = $("#tel3")
+        signUpbtn.on("click",function (e) {
+            e.preventDefault()
+            if(tel1.val().length==3 && tel2.val().length==4 && tel3.val().length==4){
+                let fulltel = tel1.val()+tel2.val()+tel3.val();
+                tel.val(fulltel)
+            }
+            $(this).closest("form").submit();
+        })
+    </script>
+
+</th:block>
+</body>
+</html>

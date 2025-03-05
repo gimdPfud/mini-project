@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        a {
+            color: dimgray;
+        }
+    </style>
+</head>
+<body>
+    <th:block th:fragment="footer">
+
+
+        <footer class="bd-footer py-4 py-md-5 mt-5 bg-body-tertiary">
+            <div class="container py-4 px-4 text-body-secondary">
+                <div class="row row-cols-2">
+                    <div class="col mb-3">
+                        <ul class="list-unstyled small">
+                            <li class="mb-2">상호 : 양앤말</li>
+                            <li class="mb-2">대표 : woori</li>
+                            <li class="mb-2">사업자등록번호 : 000-00-00000</li>
+                            <li class="mb-2">통신판매업 신고번호 : 0000-0000-0000</li>
+                            <li class="mb-2">주소 : 경기 부천시 원미구 역곡로 2번길 7, 6층 603호</li>
+                            <li class="mb-2">고객센터 : 032-665-5522</li>
+                            <li class="mb-2"><br></li>
+                            <li class="mb-2">Copyright &copy; 양앤말 All rights reserved</li>
+                        </ul>
+                    </div>
+                    <div class="col mb-3">
+                        <ul class="list-unstyled small">
+                            <li class="mb-2"><a href="/YnM/user/logout" class="footerlink">로그아웃</a> | <a href="/" class="footerlink">마이페이지</a> | <a href="/" class="footerlink">회원가입</a> | <a href="/" class="footerlink">공지사항/문의</a></li>
+                            <li class="mb-2"><a href="/" class="footerlink" target="_blank" rel="noopener">사업자정보확인</a> | <a href="/" class="footerlink" target="_blank" rel="noopener">이용약관</a> | <a href="/" class="footerlink" target="_blank" rel="noopener">개인정보처리방침</a></li>
+                            <li class="mb-2"><br></li>
+                            <li class="mb-2"><br></li>
+                            <li class="mb-2"><br></li>
+                            <li class="mb-2">평일 09 : 30 ~ 18 : 00</li>
+                            <li class="mb-2">토요일, 공휴일 휴무</li>
+                            <li class="mb-2">점심시간 13 : 20 ~ 14 : 10</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+
+        <script>
+            document.querySelectorAll(".footerlink").forEach(function(link) {
+                link.style.color = "dimgray";
+            });
+        </script>
+    </th:block>
+</body>
+</html>

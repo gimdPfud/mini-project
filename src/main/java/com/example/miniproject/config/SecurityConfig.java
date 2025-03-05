@@ -21,7 +21,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         /*url을 통해서 들어오는 인가,권한에 따른 접속 여부*/
                         (AuthorizeHttpRequests) -> AuthorizeHttpRequests
-                        /*.anyrequest().autho어쩌고?*/
                                 .anyRequest().permitAll()
                 )
                 .csrf(csrf -> csrf.disable())
