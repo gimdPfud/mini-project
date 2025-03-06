@@ -23,4 +23,14 @@ public class MainController {
     public String main3(){
         return "YnM/main";
     }
+
+    @GetMapping("/양말")
+    public String main4(){
+        return "YnM/main";
+    }
+
+    @GetMapping("/양앤말")
+    public String main5(){
+        return "YnM/main";
+    }
 }

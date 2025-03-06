@@ -3,6 +3,7 @@ package com.example.miniproject.uuidTest;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class CreateUuid {
@@ -36,6 +37,14 @@ public class CreateUuid {
         return sb.toString();
     }
 
+
+    public static String[] getTypes(String type){
+        if(type == null || type.isEmpty()){
+            return null;
+        }
+        return  type.split(",");
+    }
+
     /*todo 주문번호 생성하기*/
     public static void main(String[] args) {
         CreateUuid uuid = new CreateUuid();
@@ -44,5 +53,9 @@ public class CreateUuid {
         System.out.println("주문번호 : "+uuid.createShortUuid());
         System.out.println("주문번호 : "+uuid.createShortUuid());
         System.out.println("주문번호 : "+uuid.createShortUuid());
+
+        String type = "화이트,그레이,";
+        System.out.println(Arrays.toString(getTypes(type)));
+
     }
 }

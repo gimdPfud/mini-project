@@ -1,7 +1,6 @@
 package com.example.miniproject.entity;
 
 import com.example.miniproject.constant.ItemSellStatus;
-import com.example.miniproject.constant.Season;
 import com.example.miniproject.entity.base.BaseTimeBy;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -45,7 +44,5 @@ public class Item extends BaseTimeBy {
     private	String	usefor	;       //착용대상
     private	String	texture	;       //소재
     private	String	pattern	;       //무늬 패턴
-
-    @Enumerated(EnumType.STRING)
-    Season season	;               //계절용(FW/SS)
+    private String season	;       //계절용(FW/SS)
 }

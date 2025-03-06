@@ -2,18 +2,24 @@ package com.example.miniproject.service;
 
 import com.example.miniproject.constant.Role;
 import com.example.miniproject.dto.MemberDTO;
+import com.example.miniproject.dto.RequestPageDTO;
+import com.example.miniproject.dto.ResponsePageDTO;
 import com.example.miniproject.entity.Member;
 import com.example.miniproject.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Log4j2
@@ -42,9 +48,6 @@ public class MemberServiceImpl implements MemberService , UserDetailsService {
         /*3. 비밀번호 암호화*/
         member.setPsw(passwordEncoder.encode(member.getPsw()));
 
-//        /*4. todo 일단 지금 권한은 ADMIN*/
-//        member.setRole(Role.ADMIN);
-
         /*5. 저장*/
         member = memberRepository.save(member);
 
@@ -55,6 +58,23 @@ public class MemberServiceImpl implements MemberService , UserDetailsService {
     @Override
     public MemberDTO update(MemberDTO memberDTO) {
         return null;
+    }
+
+    @Override
+    public ResponsePageDTO<MemberDTO> memberList(String keyword, RequestPageDTO requestPageDTO){
+        log.info("멤버서비스-리스트");
+        log.info(requestPageDTO);
+        /*멤버Search의 리스트 기능으로 가져옴.*/
+        Page<Member> memberPage = memberRepository.memberList(keyword, requestPageDTO.getPageable("id"));
+        /*리스트 타입으로 가져온다.*/
+        List<Member> memberList = memberPage.getContent();
+        /*DTO로 변환한다.*/
+        List<MemberDTO> memberDTOList = memberList.stream().map(member -> modelMapper.map(member,MemberDTO.class)).collect(Collectors.toList());
+        /*총 수를 가져온다.*/
+        int total = (int) memberPage.getTotalElements();
+        /*리스폰스를 만든다.*/
+        ResponsePageDTO<MemberDTO> responsePageDTO = new ResponsePageDTO<>(requestPageDTO, memberDTOList,total);
+        return responsePageDTO;
     }
 
     @Override
