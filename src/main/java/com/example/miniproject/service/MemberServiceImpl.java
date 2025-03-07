@@ -30,6 +30,18 @@ public class MemberServiceImpl implements MemberService , UserDetailsService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Override
+    public MemberDTO update(MemberDTO memberDTO) {
+
+
+
+        /* todo */
+
+
+
+        return null;
+    }
+
     private void validMemberDupl(String email){
         Member member = memberRepository.findByEmail(email);
         if(member!=null){
@@ -53,11 +65,6 @@ public class MemberServiceImpl implements MemberService , UserDetailsService {
 
         /*6. 반환*/
         return modelMapper.map(member,MemberDTO.class);
-    }
-
-    @Override
-    public MemberDTO update(MemberDTO memberDTO) {
-        return null;
     }
 
     @Override
