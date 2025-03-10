@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
     @GetMapping("/")
     public String main(){
-        return "YnM/main";
+        return "ynm/main";
     }
 
-    @GetMapping("/YnM")
+    @GetMapping("/ynm")
     public String main2(){
-        return "YnM/main";
+        return "ynm/main";
     }
 
-    @GetMapping("/YnM/main")
+    @GetMapping("/ynm/main")
     public String main3(){
-        return "YnM/main";
+        return "ynm/main";
     }
 
     @GetMapping("/양말")
     public String main4(){
-        return "YnM/main";
+        return "ynm/main";
     }
 
     @GetMapping("/양앤말")
     public String main5(){
-        return "YnM/main";
+        return "ynm/main";
     }
 }

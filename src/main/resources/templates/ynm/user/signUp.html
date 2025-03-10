@@ -14,7 +14,7 @@
 </head>
 <body>
 <th:block layout:fragment="content">
-    <form action="/YnM/user/signUp" method="post" th:object="${memberDTO}">
+    <form action="/ynm/user/signUp" method="post" th:object="${memberDTO}">
         <div class="row mt-3">
             <div class="col-6 offset-3">
 
@@ -76,13 +76,12 @@
                 <!--todo 전화번호-->
                 <div class="row">
                     <div class="col">
+                        <div class="telError mb-3"></div>
                         <div class="form-floating mb-3">
                             <div class="input-group">
                                 <span class="input-group-text">전화번호</span>
-                                <input type="text" id="tel1" class="form-control" placeholder="010">
-                                <input type="text" id="tel2" class="form-control" placeholder="0000">
-                                <input type="text" id="tel3" class="form-control" placeholder="0000">
-                                <input type="hidden" name="tel" id="tel" class="form-control">
+                                <input type="text" th:field="*{tel}" class="form-control"
+                                       placeholder="010-1234-5678">
                             </div>
                         </div>
                     </div>
@@ -93,23 +92,32 @@
                     <div class="col">
                         <div class="form-floating mb-3">
 
-                            <div class="input-group mb-3">
-                                <label class="input-group-text" for="gender">성별</label>
-                                <select class="form-select" id="gender" th:field="*{gender}">
-                                    <option value="M">남성</option>
-                                    <option value="F">여성</option>
-                                    <option value="N">밝히지 않음</option>
-                                </select>
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-auto">
+                                    <label class="input-group-text">성별</label>
+                                </div>
+                                <!-- 라디오 버튼 그룹 -->
+                                <div class="col-auto">
+                                    <div class="btn-group" role="group" aria-label="Gender options">
+                                        <input class="form-check-input" type="radio" id="genderN" th:field="*{gender}" value="N">
+                                        <label class="form-check-label" for="genderN">밝히지 않음</label>
+                                        <input class="form-check-input" type="radio" id="genderM" th:field="*{gender}" value="M">
+                                        <label class="form-check-label" for="genderM">남성</label>
+                                        <input class="form-check-input" type="radio" id="genderF" th:field="*{gender}" value="F">
+                                        <label class="form-check-label" for="genderF">여성</label>
+                                    </div>
+                                </div>
                             </div>
+
 
                         </div>
                     </div>
                 </div>
 
                 <!--todo 버튼-->
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col text-center d-grid">
-                        <button type="submit" class="btn btn-secondary signUpbtn">회원가입 &Gt;</button>
+                        <button type="submit" class="btn btn-lg btn-secondary signUpbtn">회원가입 &Gt;</button>
                     </div>
                 </div>
 
@@ -133,17 +141,27 @@
 
         let signUpbtn = $(".signUpbtn")
         let tel = $("#tel")
-        let tel1 = $("#tel1")
-        let tel2 = $("#tel2")
-        let tel3 = $("#tel3")
+        let telError = $(".telError")
+
         signUpbtn.on("click",function (e) {
-            e.preventDefault()
-            if(tel1.val().length==3 && tel2.val().length==4 && tel3.val().length==4){
-                let fulltel = tel1.val()+tel2.val()+tel3.val();
-                tel.val(fulltel)
+            e.preventDefault();
+            var telRule =/^\d{3}-\d{3,4}-\d{4}$/;
+            if(!telRule.test(tel.val())){
+                appendAlert('전화번호 양식에 맞추어 작성해주세요.', 'danger')
             }
-            $(this).closest("form").submit();
         })
+
+        const appendAlert = (message, type) => {
+            const wrapper = document.createElement('div')
+            wrapper.innerHTML = [
+                `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+                `   <div>${message}</div>`,
+                '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+                '</div>'
+            ].join('')
+
+            telError.append(wrapper)
+        }
     </script>
 
 </th:block>
