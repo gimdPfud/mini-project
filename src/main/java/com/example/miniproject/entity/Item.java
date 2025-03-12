@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity
 @Getter @Setter @ToString @NoArgsConstructor
 public class Item extends BaseTimeBy {
@@ -45,4 +47,7 @@ public class Item extends BaseTimeBy {
     private	String	texture	;       //소재
     private	String	pattern	;       //무늬 패턴
     private String season	;       //계절용(FW/SS)
+
+    @OneToMany(mappedBy = "item" ,fetch = FetchType.LAZY)
+    private List<Image> imageList;
 }

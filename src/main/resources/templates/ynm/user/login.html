@@ -12,8 +12,8 @@
 
     <form action="/ynm/user/login" method="post">
         <div class="row mt-3">
-            <div class="col-6 offset-3 shadow p-4">
-                <h1 class="text-center">로그인</h1>
+            <div class="col-6 offset-3">
+                <h1 class="text-center mb-3">로그인</h1>
 
                 <th:block th:if="${param.error}">
                     <div class="alert alert-danger mt-4">
@@ -41,13 +41,13 @@
 
                 <div class="row">
                     <div class="col text-center d-grid mb-3">
-                        <button type="submit" class="btn btn-dark">로그인</button>
+                        <button type="submit" class="btn btn-secondary p-3">로그인</button>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col text-center d-grid mb-3">
-                        <a href="/ynm/user/signUp" class="btn btn-dark">회원가입</a>
+                        <a href="/ynm/user/signUp" class="btn btn-dark p-3">회원가입</a>
                     </div>
                 </div>
 
