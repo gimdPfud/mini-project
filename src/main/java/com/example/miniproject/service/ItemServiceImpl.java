@@ -2,17 +2,19 @@ package com.example.miniproject.service;
 
 import com.example.miniproject.dto.ImageDTO;
 import com.example.miniproject.dto.ItemDTO;
+import com.example.miniproject.dto.PageRequestDTO;
 import com.example.miniproject.entity.Item;
 import com.example.miniproject.repository.ItemRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -45,15 +47,20 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public ItemDTO itemDetail(Long id) {
-        return null;
+        /*상품 찾아줘!*/
+        Item item = itemRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        /*상품의 이미지 찾아줘!*/
+        List<ImageDTO> imageDTOList = imageService.read("item", item.getId());
+        /*상품DTO안에 이미지저장해!*/
+        ItemDTO itemDTO = modelMapper.map(item, ItemDTO.class);
+        itemDTO.setImageDTOList(imageDTOList);
+        return itemDTO;
     }
 
     @Override
-    public Page<ItemDTO> itemlist(Pageable pageable, String keyword,
-                                  String[] colors, String[] shapes,
-                                  String[] usefors, String[] textures,
-                                  String[] patterns, String[] seasons) {
-        Page<Item> itemPage = itemRepository.itemList(keyword, colors, shapes,usefors,textures,patterns,seasons,pageable);
+    public Page<ItemDTO> itemlist(PageRequestDTO pageRequestDTO) {
+        Page<Item> itemPage = itemRepository.itemList(pageRequestDTO.getKeyword(), pageRequestDTO.getColors(), pageRequestDTO.getShapes(), pageRequestDTO.getUsefors(), pageRequestDTO.getTextures(), pageRequestDTO.getPatterns(), pageRequestDTO.getSeasons(),
+                pageRequestDTO.pageable("id"));
 
         /*dto타입으로 변환..*/
         Page<ItemDTO> itemDTOPage = itemPage.map(item -> modelMapper.map(item, ItemDTO.class)
@@ -64,6 +71,11 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public Long itemUpdate(ItemDTO itemDTO) {
+        /*일단 아이템을 찾아와서 아이템.set(디티오)*/
+        if(itemRepository.findById(itemDTO.getId()).isPresent()){
+            Item item = itemRepository.save(modelMapper.map(itemDTO, Item.class).setId(itemDTO.getId()));
+            return item.getId();
+        }
         return 0L;
     }
 }

@@ -1,8 +1,8 @@
 package com.example.miniproject.service;
 
 import com.example.miniproject.dto.ItemDTO;
+import com.example.miniproject.dto.PageRequestDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -17,9 +17,7 @@ public interface ItemService {
     public ItemDTO itemDetail(Long id);
 
     /*상품 목록*/
-    public Page<ItemDTO> itemlist(Pageable pageable, String keyword, String[] colors, String[] shapes,
-                                  String[] usefors, String[] textures,
-                                  String[] patterns, String[] seasons);
+    public Page<ItemDTO> itemlist(PageRequestDTO pageRequestDTO);
 
     /*상품 수정
     * DTO 넣고 pk 받음*/
